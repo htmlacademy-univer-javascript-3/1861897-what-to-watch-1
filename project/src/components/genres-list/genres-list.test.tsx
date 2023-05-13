@@ -1,4 +1,4 @@
-import { getMockFilms } from '../../utils/mocks';
+import { getMockExtendedFilms } from '../../utils/mocks';
 import { createApi } from '../../services/api';
 import thunk, { ThunkDispatch } from 'redux-thunk';
 import { configureMockStore } from '@jedmao/redux-mock-store';
@@ -12,7 +12,7 @@ import { GenresList } from './genres-list';
 
 jest.mock('../../services/process-error-handle.ts');
 describe('GenresList', () => {
-  const mockFilms = getMockFilms();
+  const mockExtendedFilms = getMockExtendedFilms();
   const api = createApi();
   const middlewares = [thunk.withExtraArgument(api)];
   const mockStore = configureMockStore<
@@ -22,7 +22,7 @@ describe('GenresList', () => {
   >(middlewares);
   const store = mockStore({
     [NameSpace.Films]: {
-      films: mockFilms,
+      films: mockExtendedFilms,
       currentGenre: ALL_GENRES,
     }
   });
@@ -37,7 +37,21 @@ describe('GenresList', () => {
     );
 
     expect(screen.getByText(ALL_GENRES)).toBeInTheDocument();
-    expect(screen.getByText(mockFilms[0].genre)).toBeInTheDocument();
-    expect(screen.getByText(mockFilms[1].genre)).toBeInTheDocument();
+    expect(screen.getByText(mockExtendedFilms[0].genre)).toBeInTheDocument();
+    expect(screen.getByText(mockExtendedFilms[1].genre)).toBeInTheDocument();
+  });
+
+  it('should no more 10 genres', () => {
+    render(
+      <Provider store={store}>
+        <BrowserRouter>
+          <GenresList buttonClickHandler={() => ({})} />
+        </BrowserRouter>
+      </Provider>
+    );
+
+    const genres = screen.getAllByTestId('genre');
+
+    expect(genres.length).toBe(10);
   });
 });

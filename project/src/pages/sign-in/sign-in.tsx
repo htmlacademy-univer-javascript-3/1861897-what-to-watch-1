@@ -1,9 +1,14 @@
 import { FormEvent, useRef } from 'react';
-import { useAppDispatch } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { login } from '../../store/action';
 import { Footer, Logo } from '../../components';
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
+import processErrorHandle from '../../services/process-error-handle';
+import { AppRoute, AuthorizationStatus } from '../../const';
+import { Navigate } from 'react-router-dom';
 
 const SignIn = (): JSX.Element => {
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const emailRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
 
@@ -13,10 +18,18 @@ const SignIn = (): JSX.Element => {
     event.preventDefault();
 
     if (emailRef.current !== null && passwordRef.current !== null) {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-      dispatch(login({password: passwordRef.current?.value, email: emailRef.current.value}));
+      if (/((?:[0-9][a-zA-Z\s])|(?:[a-zA-Z\s][0-9]))/.test(passwordRef.current.value)) {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+        dispatch(login({password: passwordRef.current.value, email: emailRef.current.value}));
+      } else {
+        processErrorHandle('Пароль должен содержать хотя бы одну букву и цифру');
+      }
     }
   };
+
+  if (authorizationStatus === AuthorizationStatus.Auth) {
+    return (<Navigate to={AppRoute.MainPage} />);
+  }
 
   return (
     <div className="user-page">

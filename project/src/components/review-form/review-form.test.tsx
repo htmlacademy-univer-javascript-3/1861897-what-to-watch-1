@@ -45,6 +45,21 @@ describe('ReviewForm', () => {
     expect(screen.getByRole('textbox')).toBeInTheDocument();
   });
 
+  it('should not dispatch AddReview, when click by postButton and there is no comment data', async () => {
+    render(
+      <Provider store={store}>
+        <BrowserRouter>
+          <ReviewForm />
+        </BrowserRouter>
+      </Provider>
+    );
+
+    await userEvent.click(screen.getByTestId('post-button'));
+
+    // eslint-disable-next-line  @typescript-eslint/no-unsafe-return
+    expect(store.getActions().map(({type}) => type)).toEqual([]);
+  });
+
   it('should dispatch AddReview, when click by postButton', async () => {
     render(
       <Provider store={store}>
@@ -53,6 +68,10 @@ describe('ReviewForm', () => {
         </BrowserRouter>
       </Provider>
     );
+
+    await userEvent.click(screen.getByTestId('rating2'));
+    await userEvent.type(screen.getByRole('textbox'),
+      'text text text text text text text text text text text text text text text text text text');
 
     await userEvent.click(screen.getByTestId('post-button'));
 

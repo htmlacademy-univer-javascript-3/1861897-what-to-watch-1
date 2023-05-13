@@ -1,6 +1,8 @@
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { logout } from '../../store/action';
 import { getUser } from '../../store/user-process/selectors';
+import { Link } from 'react-router-dom';
+import { AppRoute } from '../../const';
 
 export const SignOut = () => {
   const dispatch = useAppDispatch();
@@ -12,7 +14,9 @@ export const SignOut = () => {
       <li className="user-block__item">
         <div className="user-block__avatar">
           {/*eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-call*/}
-          <img src={avatarImage} alt="User avatar" width="63" height="63" />
+          <Link to={AppRoute.MyList}>
+            <img src={avatarImage} alt="User avatar" width="63" height="63"/>
+          </Link>
         </div>
       </li>
       <li className="user-block__item">

@@ -4,7 +4,7 @@ import thunk from 'redux-thunk';
 import { configureMockStore } from '@jedmao/redux-mock-store';
 import { StateType } from '../../types/state-type';
 import { Action } from '@reduxjs/toolkit';
-import { NameSpace } from '../../const';
+import { AppRoute, NameSpace } from '../../const';
 import { render, screen } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
@@ -55,5 +55,22 @@ describe('SignOut', () => {
     expect(store.getActions().map(({type}) => type)).toEqual([
       logout.pending.type,
     ]);
+  });
+
+  it('should redirect to AppRoute.MyList, when click by link', async () => {
+    render(
+      <Provider store={store}>
+        <BrowserRouter>
+          <Routes>
+            <Route path={AppRoute.MyList} element={<p>MyList</p>} />
+            <Route path={'*'} element={<SignOut/>}/>
+          </Routes>
+        </BrowserRouter>
+      </Provider>
+    );
+
+    await userEvent.click(screen.getByRole('link'));
+
+    expect(screen.getByText(/MyList/i)).toBeInTheDocument();
   });
 });

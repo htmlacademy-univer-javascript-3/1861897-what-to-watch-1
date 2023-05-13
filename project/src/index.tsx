@@ -20,6 +20,7 @@ root.render(
     <Provider store={store}>
       <ErrorMessage />
       <HistoryRouter history={browserHistory}>
+        <ErrorMessage />
         <App/>
       </HistoryRouter>
     </Provider>

@@ -68,7 +68,7 @@ export const getMockExtendedFilms = (): FilmType[] => ([
       'Benicio Del Toro'
     ],
     runTime: 104,
-    genre: 'Comedy',
+    genre: 'Comedy1',
     released: 2000,
     id: 1,
     isFavorite: false,
@@ -91,7 +91,7 @@ export const getMockExtendedFilms = (): FilmType[] => ([
       'Daniel Day-Lewis'
     ],
     runTime: 167,
-    genre: 'Crime',
+    genre: 'Crime2',
     released: 2002,
     id: 2,
     isFavorite: false,
@@ -114,7 +114,7 @@ export const getMockExtendedFilms = (): FilmType[] => ([
       'Tim Robbins'
     ],
     runTime: 116,
-    genre: 'Adventure',
+    genre: 'Adventure3',
     released: 2005,
     id: 3,
     isFavorite: false,
@@ -137,7 +137,7 @@ export const getMockExtendedFilms = (): FilmType[] => ([
       'Natalie Imbruglia'
     ],
     runTime: 88,
-    genre: 'Comedy',
+    genre: 'Comedy4',
     released: 2003,
     id: 4,
     isFavorite: false,
@@ -160,7 +160,7 @@ export const getMockExtendedFilms = (): FilmType[] => ([
       'Jason Schwartzman'
     ],
     runTime: 91,
-    genre: 'Adventure',
+    genre: 'Adventure5',
     released: 2007,
     id: 5,
     isFavorite: false,
@@ -183,7 +183,7 @@ export const getMockExtendedFilms = (): FilmType[] => ([
       'Natasia Demetriou'
     ],
     runTime: 30,
-    genre: 'Comedy',
+    genre: 'Comedy6',
     released: 2019,
     id: 6,
     isFavorite: false,
@@ -206,7 +206,7 @@ export const getMockExtendedFilms = (): FilmType[] => ([
       'Bruce Willis'
     ],
     runTime: 94,
-    genre: 'Adventure',
+    genre: 'Adventure7',
     released: 2012,
     id: 7,
     isFavorite: false,
@@ -229,7 +229,7 @@ export const getMockExtendedFilms = (): FilmType[] => ([
       'Kate Beckinsale'
     ],
     runTime: 170,
-    genre: 'Drama',
+    genre: 'Drama8',
     released: 2014,
     id: 8,
     isFavorite: false,
@@ -252,7 +252,7 @@ export const getMockExtendedFilms = (): FilmType[] => ([
       'Patcharawan Patarakijjanon'
     ],
     runTime: 119,
-    genre: 'Adventure',
+    genre: 'Adventure9',
     released: 2000,
     id: 10,
     isFavorite: true,
@@ -275,7 +275,7 @@ export const getMockExtendedFilms = (): FilmType[] => ([
       'Quentin Crisp'
     ],
     runTime: 94,
-    genre: 'Drama',
+    genre: 'Drama10',
     released: 1992,
     id: 9,
     isFavorite: true,
@@ -298,7 +298,7 @@ export const getMockExtendedFilms = (): FilmType[] => ([
       'Mark Ruffalo'
     ],
     runTime: 138,
-    genre: 'Thriller',
+    genre: 'Thriller11',
     released: 2010,
     id: 11,
     isFavorite: true,

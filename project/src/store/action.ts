@@ -62,17 +62,29 @@ export const loadReviews = createAsyncThunk<ReviewType[] | undefined, number, {
   }
 );
 
-export const addReview = createAsyncThunk<void, { filmId: number; comment: string; rating: number }, {
-  dispatch: AppDispatch;
-  state: StateType;
-  extra: AxiosInstance;
-}>(
-  'addReview',
-  async ({filmId, comment, rating}, {dispatch, extra: api}) => {
-    await api.post<ReviewType[]>(`${ApiRoute.Reviews}${String(filmId)}`, {comment, rating});
-    dispatch(redirectToRoute(`${ApiRoute.Films}${String(filmId)}`));
-  }
-);
+export const addReview = createAsyncThunk<
+  void,
+  { filmId: number; comment: string; rating: number; setFormIsDisabled?: (formDisabled: boolean) => void },
+  {
+    dispatch: AppDispatch;
+    state: StateType;
+    extra: AxiosInstance;
+  }>(
+    'addReview',
+    async ({filmId, comment, rating, setFormIsDisabled}, {dispatch, extra: api}) => {
+      try {
+        if (setFormIsDisabled) {
+          setFormIsDisabled(true);
+        }
+        await api.post<ReviewType[]>(`${ApiRoute.Reviews}${filmId}`, {comment, rating});
+        dispatch(redirectToRoute(`${ApiRoute.Films}${filmId}`));
+      } finally {
+        if (setFormIsDisabled) {
+          setFormIsDisabled(false);
+        }
+      }
+    }
+    );
 
 export const loadSimilarFilms = createAsyncThunk<FilmType[] | undefined, number, {
   dispatch: AppDispatch;
@@ -116,13 +128,13 @@ export const loadFavoriteFilms = createAsyncThunk<FilmType[] | undefined, undefi
     try {
       const {data} = await api.get<FilmType[]>(ApiRoute.Favorite);
       return data;
-    }catch {
+    } catch {
       dispatch(redirectToRoute(AppRoute.NotFound));
     }
   }
 );
 
-export const changeFavoriteStatusFilm = createAsyncThunk<FilmType, { filmId: number; status : boolean }, {
+export const changeFavoriteStatusFilm = createAsyncThunk<FilmType, { filmId: number; status: boolean }, {
   dispatch: AppDispatch;
   state: StateType;
   extra: AxiosInstance;

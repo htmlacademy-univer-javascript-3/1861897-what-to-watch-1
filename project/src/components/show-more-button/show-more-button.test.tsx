@@ -12,7 +12,7 @@ describe('ShowMoreButton', () => {
     const mockHandler = jest.fn();
     render(<ShowMoreButton buttonClickHandler={mockHandler}/>);
 
-    await userEvent.click(screen.getByRole(/button/i));
+    await userEvent.click(screen.getByRole('button'));
     expect(mockHandler).toBeCalled();
   });
 });

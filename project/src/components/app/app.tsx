@@ -44,7 +44,11 @@ export const App = (): JSX.Element => {
         />
         <Route
           path={AppRoute.AddReview}
-          element={<AddReview />}
+          element={
+            <PrivateRoute>
+              <AddReview />
+            </PrivateRoute>
+          }
         />
         <Route
           path={AppRoute.Player}

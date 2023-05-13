@@ -1,18 +1,34 @@
-import { Link, Navigate } from 'react-router-dom';
-import { Logo, ReviewForm, SignIn, SignOut } from '../../components';
-import { useAppSelector } from '../../hooks';
+import { Link, useParams } from 'react-router-dom';
+import { Logo, ReviewForm, SignIn, SignOut, Spinner } from '../../components';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 
-import { getCurrentFilm } from '../../store/film-process/selectors';
+import { getCurrentFilm, getIsFilmLoading } from '../../store/film-process/selectors';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
 
-import { AppRoute, AuthorizationStatus } from '../../const';
+import { AuthorizationStatus } from '../../const';
+import NotFound from '../not-found/not-found';
+import { loadFilmById } from '../../store/action';
+import { useEffect } from 'react';
 
 const AddReview = (): JSX.Element => {
+  const dispatch = useAppDispatch();
+  const id = Number(useParams().id);
+
+  useEffect(() => {
+    dispatch(loadFilmById(id));
+  }, [id, dispatch]);
+
+
   const film = useAppSelector(getCurrentFilm);
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const isFilmLoading = useAppSelector(getIsFilmLoading);
+
+  if (isFilmLoading) {
+    return <Spinner />;
+  }
 
   if (!film) {
-    return <Navigate to={AppRoute.NotFound} />;
+    return (<NotFound />);
   }
 
   return (

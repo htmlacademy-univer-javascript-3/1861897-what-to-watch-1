@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 import { useAppDispatch, useAppSelector } from '../../hooks';
 
@@ -8,6 +8,7 @@ import { loadFilmById } from '../../store/action';
 import { getCurrentFilm, getIsFilmLoading } from '../../store/film-process/selectors';
 import NotFound from '../not-found/not-found';
 import { Spinner } from '../../components';
+import browserHistory from '../../services/browser-history';
 
 const Player = (): JSX.Element => {
   const dispatch = useAppDispatch();
@@ -69,7 +70,7 @@ const Player = (): JSX.Element => {
     <div className="player">
       {isLoadingVideo && <Spinner />}
       <video autoPlay preload={'auto'} ref={videoRef} src={film.videoLink} className="player__video" poster={film.backgroundImage} onLoadStart={() => setIsLoadingVideo(true)} onLoadedData={() => setIsLoadingVideo(false)} onTimeUpdate={handleUpdate} />
-      <Link to={`/films/${film.id}`} className="player__exit">Exit</Link>
+      <button onClick={() => browserHistory.back()} className="player__exit">Exit</button>
       <div className="player__controls">
         <div className="player__controls-row">
           <div className="player__time">
